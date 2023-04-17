@@ -1,6 +1,7 @@
 const express = require("express");
 require("dotenv").config();
 const movies = require("./moviesHandler");
+const movieRouter = require("./src/routes/movies.routes");
 
 const port = process.env.PORT;
 
@@ -12,14 +13,16 @@ server.get("/", (req, res) => {
   res.send("Welcome to my Movies Gallery!");
 });
 
-//* get all movies
-server.get("/api/movies", movies.getAllMovies);
+server.use("/api/movies", movieRouter)
 
-//* get a single movie by ID
-server.get("/api/movies/:id", movies.getMovieById);
+// //* get all movies
+// server.get("/api/movies", movies.getAllMovies);
 
-//* create a new movie
-server.post("/api/movies", movies.createMovie);
+// //* get a single movie by ID
+// server.get("/api/movies/:id", movies.getMovieById);
+
+// //* create a new movie
+// server.post("/api/movies", movies.createMovie);
 
 
 server.listen(port, () => {
